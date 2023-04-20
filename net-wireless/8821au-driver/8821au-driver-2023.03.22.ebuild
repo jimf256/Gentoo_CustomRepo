@@ -58,7 +58,7 @@ pkg_prerm() {
 	modprobe -r 8821au
 	depmod -a
 	# remove the module if we're not upgrading to a newer version
-	[ -z ${REPLACED_BY_VERSON}] && rm "${ROOT}/lib/modules/$(uname -r)/kernel/net/wireless/8821au.ko"
+	[ -z "${REPLACED_BY_VERSON}"] && rm "${ROOT}/lib/modules/$(uname -r)/kernel/net/wireless/8821au.ko"
 }
 
 pkg_postrm() {
