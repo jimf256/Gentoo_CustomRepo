@@ -47,20 +47,14 @@ src_install() {
 
 pkg_postinst() {
 	linux-mod_pkg_postinst
+
 	# load the module and restart the network service
 	modprobe 8821au
 	rc-service ${INTERFACE} restart
 }
 
-pkg_prerm() {
-	# stop the network service and unload the module
-	rc-service ${INTERFACE} stop
-	modprobe -r 8821au
-	depmod -a
-	# remove the module if we're not upgrading to a newer version
-	[ -z "${REPLACED_BY_VERSON}"] && rm "${ROOT}/lib/modules/$(uname -r)/kernel/net/wireless/8821au.ko"
-}
-
 pkg_postrm() {
 	linux-mod_pkg_postrm
+	# note: the module doesn't actually get removed or unloaded
+	#       causes too many issues during a re-install
 }
