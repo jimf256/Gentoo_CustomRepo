@@ -1,0 +1,28 @@
+# patch the makefile so that it looks for kernel sources via /usr/src/linux rather
+# than via uname, meaning it installs to the installed rather than the running kernel
+
+--- a/Makefile
++++ b/Makefile
+@@ -1369,7 +1369,11 @@ endif
+ ARCH ?= $(SUBARCH)
+ 
+ CROSS_COMPILE ?=
+-KVER ?= $(shell uname -r)
++# [JF] default KVER is determined from the /usr/src/linux symlink, rather than uname
++# this means it is not necessarily the currently running kernel
++# this is required for building the driver for a newly installed kernel while still
++# running the old kernel
++KVER ?= $(shell readlink /usr/src/linux | cut -c 7-)
+ KSRC := /lib/modules/$(KVER)/build
+ MODDESTDIR := /lib/modules/$(KVER)/kernel/drivers/net/wireless/
+ INSTALL_PREFIX :=
+@@ -2498,6 +2502,9 @@ export CONFIG_RTL8821AU = m
+ all: modules
+ 
+ modules:
++	@echo "KVER: $(KVER)"
++	@echo "KSRC: $(KSRC)"
++	@echo "---"
+ 	$(MAKE) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) -C $(KSRC) M=$(shell pwd)  modules
+ 
+ strip:

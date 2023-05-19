@@ -25,6 +25,10 @@ RDEPEND=""
 MODULE_NAMES="8821au(kernel/net/wireless:${S}:${S})"
 BUILD_TARGETS="clean modules"
 
+PATCHES=(
+	"${FILESDIR}/${PN}-kernel-src-dir.patch"
+)
+
 pkg_setup() {
 	linux-mod_pkg_setup
 	# cache the net interface name (assumes only one is set up, ignoring loopback)
