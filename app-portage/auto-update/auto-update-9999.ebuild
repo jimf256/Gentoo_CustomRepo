@@ -60,3 +60,10 @@ pkg_postinst() {
 	# add auto-update service to default runlevel
 	rc-update add auto-update
 }
+
+pkg_prerm() {
+	# remove log files
+	rm "S{ROOT}/opt/${PN}/*.txt"
+	# remove service from default runlevel
+	rc-update del auto-update
+}
