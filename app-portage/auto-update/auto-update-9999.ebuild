@@ -49,9 +49,9 @@ src_install() {
 
 pkg_preinst() {
 	# update the 40_custom grub config to have the correct (current) kernel version
-	old_ver="$(cat ${D}/etc/grub.d/40_custom | grep vmlinuz | sed 's/.*vmlinuz-\(.*\) root.*/\1/')"
+	old_ver="$(cat ${D}/etc/grub.d/40_custom_auto-update | grep vmlinuz | sed 's/.*vmlinuz-\(.*\) root.*/\1/')"
 	new_ver="$(uname -r)"
-	sed -i "s/$old_ver/$new_ver/" ${D}/etc/grub.d/40_custom
+	sed -i "s/$old_ver/$new_ver/" ${D}/etc/grub.d/40_custom_auto-update
 }
 
 pkg_postinst() {
