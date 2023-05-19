@@ -41,8 +41,8 @@ src_install() {
 	doins auto-update.conf
 	fperms 0400 /etc/auto-update.conf
 	# install grub config file with custom boot option
-	insinto /etc/grub.d
-	doins 40_custom
+	exeinto /etc/grub.d
+	doexe 40_custom_auto-update
 	# install openrc init script
 	newinitd init_script.sh auto-update
 }
