@@ -28,9 +28,10 @@ src_unpack() {
 }
 
 src_install() {
-	# install main python file and python environment
+	# install main python file, python environment and shell script
 	exeinto /opt/${PN}
 	doexe auto-update.py
+	doexe run_auto_update.sh
 	insinto /opt/${PN}
 	doins -r env
 	# install post-kernel-install hook
@@ -63,7 +64,7 @@ pkg_postinst() {
 
 pkg_prerm() {
 	# remove log files
-	rm S{ROOT}/opt/${PN}/*.txt
+	rm ${ROOT}/opt/${PN}/*.txt
 	# remove service from default runlevel
 	rc-update del auto-update
 }
