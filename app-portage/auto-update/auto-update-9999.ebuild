@@ -63,7 +63,12 @@ pkg_postinst() {
 
 pkg_prerm() {
 	# remove log files
-	rm "S{ROOT}/opt/${PN}/*.txt"
+	rm S{ROOT}/opt/${PN}/*.txt
 	# remove service from default runlevel
 	rc-update del auto-update
+}
+
+pkg_postrm() {
+	# update grub config
+	grub-mkconfig -o /boot/grub/grub.cfg
 }
