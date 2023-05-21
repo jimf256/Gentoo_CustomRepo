@@ -40,7 +40,7 @@ src_install() {
 	# install config file to /etc
 	insinto /etc
 	doins auto-update.conf
-	fperms 0400 /etc/auto-update.conf
+	fperms 0600 /etc/auto-update.conf
 	# install grub config file with custom boot option
 	exeinto /etc/grub.d
 	doexe 40_custom_auto-update
