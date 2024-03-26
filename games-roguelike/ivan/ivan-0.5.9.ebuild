@@ -12,7 +12,7 @@ KEYWORDS="~amd64"
 SLOT="0"
 IUSE=""
 
-BDEPEND="dev-util/cmake"
+BDEPEND="dev-build/cmake"
 DEPEND="media-libs/libsdl2
         media-libs/sdl2-mixer
         media-libs/libpng
